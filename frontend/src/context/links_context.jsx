@@ -1,6 +1,7 @@
 import React, {useContext, useReducer} from "react"
 import reducer from "../reducers/links_reducer";
-import CustomFetch from "../utils/customFetch";
+import customFetch from "../utils/customFetch";
+import {useUserContext} from "./user_context";
 
 const initialState = {
   formLinksArr: [
@@ -14,10 +15,10 @@ const LinksContext = React.createContext();
 
 export const LinksProvider = ({children}) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-
+  const {user} = useUserContext();
   const getLinks = async () => {
     try {
-      const response = await CustomFetch.get("/api/v1/links");
+      const response = await customFetch(user.accessToken).get("/api/v1/links");
       const { links } = response.data;
       dispatch({ type: "GET_LINKS", payload: links });
       return response;
@@ -38,13 +39,19 @@ export const LinksProvider = ({children}) => {
 
   const deleteLink = async (_id) => {
     removeFormLinkRow(_id);
-    const response = await CustomFetch.delete(`/api/v1/links/${_id}`, _id);
+    const response = await customFetch(user.accessToken).delete(
+      `/api/v1/links/${_id}`,
+      _id
+    );
     console.log(response);
   }
 
   const createLink = async (linksArr) => {
     try {
-      const response = await CustomFetch.post("/api/v1/links", linksArr);
+      const response = await customFetch(user.accessToken).post(
+        "/api/v1/links",
+        linksArr
+      );
       const data = response.data;
       dispatch({type: "CREATE_LINK", payload: data})
     } catch (error) {

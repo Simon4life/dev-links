@@ -158,3 +158,74 @@ main {
   padding-bottom: 2rem;
 }
 
+.landing {
+  background-color: #f5f5f5;
+  color: #333333;
+}
+
+.form-input:focus {
+    box-shadow:  1px 1px 1px var(--clr-purple);
+    border: 1px solid var(--clr-purple);
+    outline: none;
+}
+
+    /* Primary Color (Purple):
+        Hex: #7E5BEF
+        RGB: 126, 91, 239
+
+    Accent Color 1 (Light Purple):
+        Hex: #A695F7
+        RGB: 166, 149, 247
+
+    Accent Color 2 (Dark Purple):
+        Hex: #6246EA
+        RGB: 98, 70, 234
+
+    Background Color (Light Gray):
+        Hex: #F5F5F5
+        RGB: 245, 245, 245
+
+    Text Color (Dark Gray):
+        Hex: #333333
+        RGB: 51, 51, 51
+
+    Call-to-Action Color (Green):
+        Hex: #2ECC71
+        RGB: 46, 204, 113
+
+    Highlight Color (Gold):
+        Hex: #F39C12
+        RGB: 243, 156, 18 */
+
+            /* Primary Color (Purple - #7E5BEF):
+
+        Header Background: Consider using the primary color for the background of your page header to make it stand out.
+
+        Main Call-to-Action (CTA) Button: Use the primary color for your main CTA button. This helps draw attention to the most important action you want visitors to take.
+
+        Section Backgrounds: Use the primary color for backgrounds of specific sections to maintain consistency across your page.
+
+    Accent Color 1 (Light Purple - #A695F7):
+
+    <!-- Open Graph meta tags -->
+<meta property="og:title" content="Link Title">
+<meta property="og:description" content="Link Description">
+<meta property="og:image" content="Link Image URL">
+<meta property="og:url" content="Shareable Link URL">
+
+
+        Subtle Background Elements: Apply this color to subtle background elements, such as section dividers or decorative accents, to add visual interest without overwhelming the page.
+
+        Secondary Buttons: Use this color for secondary buttons or less prominent CTAs to maintain a cohesive look while distinguishing them from the primary CTA.
+
+    Accent Color 2 (Dark Purple - #6246EA):
+
+        Text and Icon Highlights: Use the dark purple for text highlights or icons to create contrast and draw attention to specific information.
+
+        Hover Effects: Apply this color for hover effects on buttons or links to provide a dynamic and interactive user experience.
+
+    Highlight Color (Gold - #F39C12):
+
+        Important Text: Use the highlight color for important text, such as headings or key phrases, to make them stand out.
+
+        Emphasis and Icons: Apply this color to emphasize certain elements, such as icons or decorative elements, to create a focal point. */

@@ -27,7 +27,7 @@ const ProfileForm = ({formValues}) => {
   }
 
   return (
-    <Wrapper onSubmit={handleSubmit}>
+    <Wrapper onSubmit={handleSubmit} backgroundimage={formValues.profilePicture}>
       <div>
         <label className="profile-picture" htmlFor="profile-picture">
           Profile Picture
@@ -120,7 +120,7 @@ const Wrapper = styled.form`
     }
     div {
       // background: blue;
-      background-image: url(${defaultImg});
+      background-image: url(${(props) => props.backgroundimage || defaultImg});
       background-position: center;
       background-size: cover;
       width: 8rem;

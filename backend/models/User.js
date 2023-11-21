@@ -24,12 +24,12 @@ const UserSchema = new mongoose.Schema({
     required: [true, "please provide a password"],
     minlength: 6,
   },
-  // verificationToken: String,
-  // isVerified: {
-  //   type: Boolean,
-  //   default: false,
-  // },
-  // verified: Date,
+  verificationToken: String,
+  isVerified: {
+    type: Boolean,
+    default: false,
+  },
+  verified: Date,
   imgUrl: {
     type: String,
     default:

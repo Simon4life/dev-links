@@ -4,15 +4,19 @@ import { Link } from 'react-router-dom';
 import PreviewCard from '../components/PreviewCard';
 import {useParams} from "react-router-dom";
 import { useQuery } from '@tanstack/react-query';
-import CustomFetch from '../utils/customFetch';
+import customFetch from '../utils/customFetch';
+import { useUserContext } from '../context/user_context';
 
 const Preview = () => {
   const {userId} =  useParams();
+  const {user} =useUserContext();
 
   const { isLoading, error, data } = useQuery({
     queryKey: ["preview"],
     queryFn: async() => {
-      return await CustomFetch.get(`/api/v1/profile/${userId}`).then((res) => res.data);
+      return await customFetch(user.accessToken)
+        .get(`/api/v1/profile/${userId}`)
+        .then((res) => res.data);
     },
   });
 
@@ -24,7 +28,7 @@ const Preview = () => {
     return <h2>Opps something went wrong</h2>
   }
   
-  const {user} = data;
+  const userData = data.user;
   return (
     <Wrapper>
       <div className="banner">
@@ -34,7 +38,7 @@ const Preview = () => {
         </nav>
       </div>
       <div className="preview-card">
-        <PreviewCard user={user} />
+        <PreviewCard user={userData} />
       </div>
     </Wrapper>
   );

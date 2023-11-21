@@ -1,16 +1,9 @@
 import axios from "axios";
 
-const getUserToken = () => {
-  let user = localStorage.getItem("user");
-  if (user) {
-    return JSON.parse(localStorage.getItem("user")).accessToken;
-  }
-  return null;
-};
 
-const token = getUserToken()
-
-const CustomFetch = axios.create({
+const customFetch = (token = null) => {
+ 
+  return axios.create({
   baseURL: "http://localhost:5000",
   headers: {
     "Content-type": "application/json; charset=UTF-8",
@@ -18,5 +11,6 @@ const CustomFetch = axios.create({
   },
   withCredentials: true,
 });
+}
 
-export default CustomFetch;
+export default customFetch;

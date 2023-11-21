@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Phone from "../components/Phone"
 import ProfileForm from '../components/ProfileForm';
 import { useQuery } from "@tanstack/react-query";
-import CustomFetch from "../utils/customFetch";
+import customFetch from "../utils/customFetch";
 import { useUserContext } from '../context/user_context';
 
 const ProfilePage = () => {
@@ -12,9 +12,9 @@ const ProfilePage = () => {
   const { isLoading, error, data } = useQuery({
     queryKey: ["profile"],
     queryFn: async () => {
-      return await CustomFetch.get(`/api/v1/profile/${userId}`).then(
-        (res) => res.data
-      );
+      return await customFetch(user.accessToken)
+        .get(`/api/v1/profile/${userId}`)
+        .then((res) => res.data);
     },
   });
 

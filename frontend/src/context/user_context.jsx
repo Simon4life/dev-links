@@ -1,5 +1,5 @@
 import React, {useContext, useReducer, useEffect} from "react";
-import CustomFetch from "../utils/customFetch"
+import customFetch from "../utils/customFetch"
 import reducer from "../reducers/user_reducer";
 
 
@@ -16,7 +16,10 @@ export const UserProvider = ({children}) => {
 
   const registerUser = async (userData) => {
     try {
-      const response = await CustomFetch.post("/api/v1/auth/register", userData);
+      const response = await customFetch.post(
+        "/api/v1/auth/register",
+        userData
+      );
       
       // localStorage.setItem("user", JSON.stringify(data));
       // dispatch({ type: "LOGIN_USER", payload: data });
@@ -28,9 +31,15 @@ export const UserProvider = ({children}) => {
 
   const updateUserProfile = async (userInfo) => {
     try {
-      const response = await CustomFetch.post("/api/v1/profile", userInfo, {headers:{
-      'Content-Type':'multipart/form-data'
-      }});
+      const response = await customFetch(state.user.accessToken).post(
+        "/api/v1/profile",
+        userInfo,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
    console.log(response)
     } catch (error) {
       console.log(error);
@@ -39,7 +48,7 @@ export const UserProvider = ({children}) => {
 
   const loginUser = async (userData) => {
     try {
-      const response = await CustomFetch.post("/api/v1/auth/login", userData);
+      const response = await customFetch.post("/api/v1/auth/login", userData);
       const data = response.data.user;
       localStorage.setItem("user", JSON.stringify(data));
       dispatch({type: "LOGIN_USER", payload: data})

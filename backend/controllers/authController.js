@@ -21,50 +21,26 @@ const registerUser = async (req, res) => {
   if(duplicateEmail) {
     throw new BadRequestError("Email already exists");
   }
-  const user = await User.create({
-    firstName,
-    lastName,
-    email,
-    password,
-    // verificationToken,
-  });
-
-  const tokenUser = {
-    email: user.email,
-    firstName: user.firstName,
-    lastName: user.lastName,
-    userId: user._id.toString(),
-  };
-  const accessToken = createJWT(
-    tokenUser,
-    process.env.ACCESS_TOKEN_SECRET,
-    process.env.ACCESS_TOKEN_LIFETIME
-  );
-  const token = crypto.randomBytes(40).toString("hex");
-  const userToken = { token, userId: user._id.toString() };
-  await Token.create(userToken);
-  addCookieToResponse({ res, user: tokenUser, token });
-  res.status(StatusCodes.CREATED).json({
-    user: {
-      fullName: `${tokenUser.firstName} ${tokenUser.lastName}`,
-      email: `${tokenUser.email}}`,
-      profilePicture: user.imgUrl,
-      accessToken,
-    },
-  });
+  // const user = await User.create({
+  //   firstName,
+  //   lastName,
+  //   email,
+  //   password,
+  //   // verificationToken,
+  // });
 
   // to do later
-  // const verificationToken = crypto.randomBytes(40).toString("hex");
-  // const origin =  req.get("host");
+  const verificationToken = crypto.randomBytes(40).toString("hex");
+  const origin =  req.get("host");
   
-  // const user = await User.create({firstName, lastName, email, password, verificationToken});
-  // sendVerificationEmail({
-  //   firstName: user.firstName,
-  //   email: user.email,
-  //   verificationToken: user.verificationToken,
-  //   origin,
-  // }); 
-  // res.status(StatusCodes.OK).json({msg: "pls verify your email"})
+  const user = await User.create({firstName, lastName, email, password, verificationToken});
+  sendVerificationEmail({
+    firstName: user.firstName,
+    email: user.email,
+    verificationToken: user.verificationToken,
+    origin,
+  }); 
+  res.status(StatusCodes.OK).json({msg: "pls verify your email"})
 }
 
 const verifyEmail = async () => {
