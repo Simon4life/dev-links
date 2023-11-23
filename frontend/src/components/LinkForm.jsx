@@ -24,8 +24,8 @@ const LinkForm = () => {
           <div className="form-content">
             {
               formLinksArr.map((linkObj, index) => {
-                
-                return <FormRow key={index} _id={linkObj._id} value={linkObj.link}/>
+                const {link, platform} = linkObj;
+                return <FormRow key={index} _id={linkObj._id} values={{link, platform}}/>
               })
             }
             <div className="btn-container">

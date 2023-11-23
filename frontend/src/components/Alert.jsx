@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
-import {FaInbox} from "react-icons/fa"
+import {FaInbox} from "react-icons/fa";
+
 const Alert = ({message}) => {
   return (
     <Wrapper>
@@ -17,12 +18,17 @@ const Wrapper = styled.article`
   border-radius: 5px;
   position: absolute;
   bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  overflow-y: auto;
   text-align: center;
   z-index: 999;
+
   p {
     margin: 0;
     display: flex;
     align-items: center;
+    text-align: center;
     svg {
       margin-right:  0.4rem;
     }

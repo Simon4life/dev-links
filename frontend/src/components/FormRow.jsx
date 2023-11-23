@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { useLinksContext } from "../context/links_context";
 
-const FormRow = ({_id, value}) => {
+const FormRow = ({_id, values}) => {
   const {deleteLink, handleFormChange} = useLinksContext();
   const handleChange = (e) => {
     const name = e.target.name;
@@ -21,7 +21,7 @@ const FormRow = ({_id, value}) => {
         </div>
 
         <label htmlFor="platform">platform</label>
-        <select name="platform" id="platform" onChange={handleChange}>
+        <select name="platform" id="platform" value={values.platform} onChange={handleChange}>
           <option value="Github">Github</option>
           <option value="Youtube">Youtube</option>
           <option value="LinkedIn">LinkedIn</option>
@@ -36,7 +36,7 @@ const FormRow = ({_id, value}) => {
           id="link"
           className="form-input"
           placeholder="Enter your link here"
-          value={value}
+          value={values.link}
         />
     </Wrapper>
   );

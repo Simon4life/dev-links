@@ -1,21 +1,26 @@
 import React from 'react'
 import styled from "styled-components";
-import Alert from '../components/Alert';
+import Hero from "../components/Hero"
+import LandingNav from "../components/LandingNav"
+import Features from "../components/Feature"
+
+
+
 const LandingPage = () => {
   return (
-    <Wrapper className='landing'>
-      <h2>Hello world!</h2>
-      <button className="btn">click me</button>
-      <Alert message={"Your changes have been saved successfully"}/>
+    <Wrapper className="landing">
+      
+      <LandingNav/>
+      <Hero/>
+      <Features/>
+      
+      
     </Wrapper>
-  )
+  );
 }
 
 const Wrapper = styled.section`
   background: #f5f5f5;
-  .btn {
-    color: #2ecc71;
-  }
 `;
 
 export default LandingPage
