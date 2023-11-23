@@ -48,7 +48,7 @@ export const UserProvider = ({children}) => {
 
   const loginUser = async (userData) => {
     try {
-      const response = await customFetch.post("/api/v1/auth/login", userData);
+      const response = await customFetch().post("/api/v1/auth/login", userData);
       const data = response.data.user;
       localStorage.setItem("user", JSON.stringify(data));
       dispatch({type: "LOGIN_USER", payload: data})

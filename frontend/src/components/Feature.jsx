@@ -71,7 +71,7 @@ const Wrapper = styled.section`
         span {
           display: inline-block;
           width: 80px;
-          background: purple;
+          background: var(--clr-purple);
           border-radius: 0.5rem;
           font-size: 2rem;
           padding: 0.5rem;
