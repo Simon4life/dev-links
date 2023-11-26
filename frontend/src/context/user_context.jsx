@@ -16,13 +16,10 @@ export const UserProvider = ({children}) => {
 
   const registerUser = async (userData) => {
     try {
-      const response = await customFetch.post(
+      const response = await customFetch().post(
         "/api/v1/auth/register",
         userData
       );
-      
-      // localStorage.setItem("user", JSON.stringify(data));
-      // dispatch({ type: "LOGIN_USER", payload: data });
       console.log(response);
     } catch (error) {
       console.log(error);

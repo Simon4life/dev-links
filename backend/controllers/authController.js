@@ -26,7 +26,7 @@ const registerUser = async (req, res) => {
   //   lastName,
   //   email,
   //   password,
-  //   // verificationToken,
+  //   verificationToken,
   // });
 
   // to do later

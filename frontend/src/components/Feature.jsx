@@ -61,7 +61,7 @@ const Wrapper = styled.section`
     }
     .features {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr;
       gap: 1rem;
       .feature {
         h4 {
@@ -74,7 +74,7 @@ const Wrapper = styled.section`
           background: var(--clr-purple);
           border-radius: 0.5rem;
           font-size: 2rem;
-          padding: 0.5rem;
+          padding: 0.5rem 0;
           svg {
             display: flex;
             justify-content: center;
@@ -91,6 +91,7 @@ const Wrapper = styled.section`
           font-weight: unset;
         }
       }
+      // @media screen and (min-width: )
     }
   
 `;

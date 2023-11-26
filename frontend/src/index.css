@@ -31,6 +31,7 @@ Variables
   --max-width: 1170px;
   --fixed-width: 620px;
   --tranparent-background: rgba(238, 41, 127, 0.941);
+  --letter-spacing: 1px;
 }
 
 /*
@@ -89,6 +90,7 @@ h4 {
 p {
   margin-bottom: 1.25rem;
   color: var(--clr-grey-5);
+  letter-spacing: var(--letterSpacing);
 }
 @media screen and (min-width: 800px) {
   h1 {

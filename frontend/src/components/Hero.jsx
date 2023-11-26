@@ -8,7 +8,7 @@ const Hero = () => {
     <Wrapper className="hero-section">
       <div className="hero-texts">
         <h2>
-          Simple link for <br /> Everything.
+          Simple link for <br /> <span>Everything.</span>
         </h2>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -25,28 +25,39 @@ const Hero = () => {
 }
 
 const Wrapper = styled.section`
-  
-    background: #251174;
-    min-height: calc(100vh - 3rem);
-    color: var(--clr-white);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto;
-    padding: 2rem;
-    div {
-    }
+  background: #251174;
+  min-height: calc(100vh - 8rem);
+  color: var(--clr-white);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  padding: 0 2rem;
+  .phone-container {
+    display: none;
+  }
+  @media screen and (min-width: 789px) {
     .phone-container img {
       width: 600px;
     }
-    .hero-texts p {
+  }
+  .hero-texts {
+    h2 {
+      font-size: 1.8rem;
+      span {
+        color: rgba(238, 41, 127, 0.941);
+      }
+    }
+    p {
       margin: 1.6rem 0;
+      letter-spacing: var(--letterSpacing);
     }
-    .btn {
-      background: rgba(238, 41, 127, 0.941);
-      color: var(--clr-white);
-      text-transform: unset;
-    }
-  
+  }
+
+  .btn {
+    background: rgba(238, 41, 127, 0.941);
+    color: var(--clr-white);
+    text-transform: unset;
+  }
 `;
 export default Hero
