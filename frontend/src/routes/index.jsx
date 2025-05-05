@@ -5,6 +5,5 @@ import ProfilePage from "./ProfilePage";
 import PreviewPage from "./Preview";
 import Auth from "./Auth"
 import HomePage from "./HomePage";
-import VerifyEmail from "./VerifyEmail";
 
-export {Root, ErrorPage, AddNewLink, ProfilePage, PreviewPage, Auth, HomePage, VerifyEmail}
+export {Root, ErrorPage, AddNewLink, ProfilePage, PreviewPage, Auth, HomePage}

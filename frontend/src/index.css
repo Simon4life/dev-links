@@ -164,8 +164,8 @@ main {
   color: #333333;
 }
 
-.form-input:focus {
-    box-shadow:  1px 1px 1px var(--clr-purple);
-    border: 1px solid var(--clr-purple);
-    outline: none;
+.form-input {
+    /* box-shadow:  1px 1px 1px var(--clr-purple); */
+    border: 2px solid var(--clr-purple);
+    /* outline: none; */
 }

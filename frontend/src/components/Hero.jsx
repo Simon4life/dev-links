@@ -1,7 +1,8 @@
 import React from 'react'
 import styled from "styled-components"
-import mainImg from "../assets/Share-link.svg";
+import mainImg from "../assets/hompage-ill.jpg";
 import { Link } from 'react-router-dom';
+import { FaArrowRightLong } from "react-icons/fa6";
 
 const Hero = () => {
   return (
@@ -15,9 +16,9 @@ const Hero = () => {
           <br />
           Eligendi officiis non quo repudiandae atque voluptatem necessitatibus.
         </p>
-        <Link className="btn">Get started</Link>
+        <Link className="btn">Get started <FaArrowRightLong className='arrow-right'/></Link>
       </div>
-      <div className="phone-container">
+      <div className="img-container">
         <img src={mainImg} alt="phone picture" />
       </div>
     </Wrapper>
@@ -25,19 +26,22 @@ const Hero = () => {
 }
 
 const Wrapper = styled.section`
-  background: #251174;
+  background: white;
   min-height: calc(100vh - 8rem);
-  color: var(--clr-white);
+  // color: var(--clr-white);
   display: flex;
-  justify-content: center;
   align-items: center;
   margin: 0 auto;
   padding: 0 2rem;
-  .phone-container {
+  .img-container {
     display: none;
   }
   @media screen and (min-width: 789px) {
-    .phone-container img {
+    justify-content: center;
+    .img-container {
+      display: block;
+    }
+    .img-container img {
       width: 600px;
     }
   }
@@ -45,7 +49,7 @@ const Wrapper = styled.section`
     h2 {
       font-size: 1.8rem;
       span {
-        color: rgba(238, 41, 127, 0.941);
+        color: var(--clr-purple);
       }
     }
     p {
@@ -55,9 +59,16 @@ const Wrapper = styled.section`
   }
 
   .btn {
-    background: rgba(238, 41, 127, 0.941);
+    background: var(--clr-purple);
     color: var(--clr-white);
     text-transform: unset;
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    .arrow-right {
+      display: inline-block;
+      margin-left: .8rem;
+    }
   }
 `;
 export default Hero

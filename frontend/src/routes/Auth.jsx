@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from "styled-components";
 import { useState } from 'react';
-import { Form, useSubmit} from "react-router-dom";
+import { Form, useActionData} from "react-router-dom";
 
 const Auth = () => {
   const [formValues, setFormValues] = useState({firstName: "", lastName: "", email: "", password: "", isMember: false})
@@ -9,45 +9,47 @@ const Auth = () => {
   const handleChange = (e) => {
     setFormValues({ ...formValues, [e.target.name]: e.target.value });
   }
-  const submit = useSubmit();
+  
+  const actionData = useActionData();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
 
-    if(formValues.isMember) {
-      const {email, password } = formValues;
-      if (!email || !password) return;
-      submit({email, password, intent: "login"}, {method: 'POST', action: "/verify",})
-    } else {
-      const { firstName, lastName, email, password } = formValues;
-      if (!firstName || !lastName || !email || !password) return;
-      submit(
-        { firstName, lastName, email, password, intent: "register" },
-        { method: "POST", action: "/verify" }
-      );
-    } 
-  }
+  // submit user data for authentication
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
 
+  //   if(formValues.isMember) {
+  //     const {email, password } = formValues;
+  //     if (!email || !password) return;
+  //     submit({email, password, intent: "login"}, {method: 'POST', action: "/verify",})
+  //   } else {
+  //     const { firstName, lastName, email, password } = formValues;
+  //     if (!firstName || !lastName || !email || !password) return;
+  //     submit(
+  //       { firstName, lastName, email, password, intent: "register" },
+  //       { method: "POST", action: "/verify" }
+  //     );
+  //   } 
+  // }
+
+  // toggle form input
   const toggleMember = () => {
     setFormValues({email: "", firstName: "", lastName: "", password: "", isMember: !formValues.isMember, })
   }
 
   return (
     <Wrapper>
-      <Form className="form"  onSubmit={handleSubmit}>
+      <Form method="POST" className="form" >
         <h2>{formValues.isMember ? "Login" : "Register"}</h2>
 
         {/* Name form input */}
         {!formValues.isMember && (
           <div>
-            <label htmlFor="email">first name</label>
+            <label htmlFor="email">First name</label>
             <input
               type="text"
               name="firstName"
               className="form-input"
-              onChange={handleChange}
               placeholder="Enter your name"
-              value={formValues.firstName}
             />
           </div>
         )}
@@ -59,9 +61,7 @@ const Auth = () => {
               type="text"
               name="lastName"
               className="form-input"
-              onChange={handleChange}
               placeholder="Enter your name"
-              value={formValues.lastName}
             />
           </div>
         )}
@@ -72,9 +72,7 @@ const Auth = () => {
           <input
             type="email"
             name="email"
-            onChange={handleChange}
             className="form-input"
-            value={formValues.email}
             placeholder="Enter your email"
           />
         </div>
@@ -87,14 +85,13 @@ const Auth = () => {
             id="password"
             className="form-input"
             name="password"
-            onChange={handleChange}
             placeholder="Enter your password"
-            value={formValues.password}
           />
         </div>
-        <button type="submit" className="btn submit-btn" >
+        <button type="submit" onClick={console.log(actionData)} className="btn submit-btn" >
           Submit
         </button>
+        <p>{actionData?.error}</p>
         <p>
           {formValues.isMember
             ? "Don't have an Account? "
@@ -113,6 +110,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 3rem;
  
   .form {
     width: 400px;
@@ -120,6 +118,7 @@ const Wrapper = styled.div`
     padding: 1rem;
     margin: 3rem auto;
     position: relative;
+    font-size: 1rem;
     label {
       display: block;
     }
@@ -127,8 +126,10 @@ const Wrapper = styled.div`
       display: inline-block;
       width: 100%;
       padding: .5rem;
-      border: 2px solid var(--clr-grey-9);
       border-radius: 5px;
+      font-size: .9rem;
+      margin-bottom: .5rem;
+
     }
     .submit-btn {
       display: block;
@@ -137,10 +138,12 @@ const Wrapper = styled.div`
     }
     .form-btn {
       background: transparent;
-      color: var(--clr-primary-5);
+      color: var(--clr-purple-dark);
       border: 0;
-      font-size: 1.2rem;
+      font-size: 1rem;
       cursor: pointer;
+      display: inline-block;
+      margin-left: 0.2rem;
     }
   }
 

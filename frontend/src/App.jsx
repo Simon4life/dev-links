@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { Root, ErrorPage, AddNewLink, ProfilePage, PreviewPage, Auth, HomePage, VerifyEmail} from "./routes";
+import { Root, ErrorPage, AddNewLink, ProfilePage, PreviewPage, Auth, HomePage} from "./routes";
 import { RouterProvider, createBrowserRouter, redirect, } from "react-router-dom";
 import { useUserContext } from "./context/user_context";
 
@@ -49,28 +49,7 @@ const App = () => {
     {
       path: "/auth",
       element: <Auth />,
-    },
-    {
-      path: "/verify",
-      action: async ({ params, request }) => {
-        let formData = await request.formData();
-        const intent = formData.get("intent");
-        if (intent === "login") {
-          const email = formData.get("email");
-          const password = formData.get("password");
-          loginUser({ email, password });
-          return redirect("/");
-        } else if (intent === "register") {
-          const email = formData.get("email");
-          const password = formData.get("password");
-          const firstName = formData.get("firstName");
-          const lastName = formData.get("lastName");
-          console.log(email, password, firstName, lastName);
-          registerUser({email, password, firstName, lastName});
-        }
-        return null;
-      },
-      element: <VerifyEmail/>,
+      action: loginUser
     },
   ]);
   return <RouterProvider router={router} />;

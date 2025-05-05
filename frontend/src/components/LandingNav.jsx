@@ -24,13 +24,13 @@ const LandingNav = () => {
         </div>
       
         <div className={`${isSidebarOpen ? "links-container show-sidebar": "links-container"}`} >
-          <div className="nav-header">
+          <div className="sidebar-header">
             <Link to="/" className="logo-container">
               <img src={logo} alt="dev-links logo" className="logo" />
               <h3>Devlinks</h3>
             </Link>
           </div>
-          <ul>
+          <ul className='links'>
             <li>
               <Link>Home</Link>
             </li>
@@ -55,70 +55,123 @@ const LandingNav = () => {
 const Wrapper = styled.nav`
   background: var(--clr-white);
   .nav-center {
-    img {
-      width: 60px;
-    }
-    .nav-header {
-      .nav-toggle {
-        border: none;
-        background: transparent;
-        font-size: 2rem;
-        cursor: pointer;
-      }
+  
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  img {
+    width: 60px;
+  }
+
+  .nav-header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+
+    .logo-container {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      width: 100%;
-      padding: 0.5rem 1rem;
-      .logo-container {
-        display: flex;
-        align-items: center;
-        h3 {
-          margin-bottom: 0;
-          margin-left: 1rem;
-          color: var(--clr-black);
-        }
-      }
-      @media screen and (min-width: 987px) {
-        .nav-toggle {
-          display: none;
-        }
+
+      h3 {
+        margin-left: 1rem;
+        margin-bottom: 0;
+        color: var(--clr-black);
       }
     }
-    .links-container {
-      display: flex;
-      flex-direction: column;
-      width: 80%;
-      position: fixed;
-      top: 0;
-      height: 100vh;
-      background: var(--clr-white);
-      transition: 0.5s;
-      transform: translate(-100%);
-      ul {
-        margin-left: 1.5rem;
-      }
-      ul li a {
+
+    .nav-toggle {
+      border: none;
+      background: transparent;
+      font-size: 2rem;
+      cursor: pointer;
+      display: block;
+    }
+  }
+
+  .links-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 80%;
+    background: var(--clr-white);
+    display: flex;
+    flex-direction: column;
+    padding-top: 4rem;
+    transform: translateX(-100%);
+    transition: transform 0.5s ease;
+    z-index: 999;
+
+    ul {
+      margin-left: 1.5rem;
+
+      li a {
         color: var(--clr-black);
         font-weight: bold;
         display: inline-block;
         margin-bottom: 0.8rem;
       }
-      .btn {
-        place-item: center;
-        display: inline-block;
-        margin-left: 1.5rem;
-      }
     }
-    .show-sidebar {
-      transform: translate(0);
-    }
+
     .btn {
-      background: rgba(238, 41, 127, 0.941);
+      display: inline-block;
+      margin-left: 1.5rem;
+      background: var(--clr-purple);
       color: var(--clr-white);
       text-transform: unset;
     }
   }
+
+  .show-sidebar {
+    transform: translateX(0);
+  }
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+
+    .nav-header {
+      .nav-toggle {
+        display: none;
+      }
+    }
+
+    .links-container {
+      position: static;
+      height: auto;
+      transform: translateX(0);
+      flex-direction: row;
+      align-items: center;
+      background: transparent;
+      padding: 0;
+      width: auto;
+      .sidebar-header {
+        display: none;
+      }
+      ul {
+        display: flex;
+        margin: 0;
+
+        li {
+          margin-right: 1.5rem;
+
+          a {
+            margin-bottom: 0;
+          }
+        }
+      }
+
+      .btn {
+        margin-left: 2rem;
+      }
+    }
+  }
+}
+
 `;
 
 export default LandingNav
