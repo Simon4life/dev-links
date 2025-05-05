@@ -80,7 +80,6 @@ const Wrapper = styled.section`
       .feature {
         gap: 1rem;
         background: var(--clr-white);
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
         h5 {
           margin: 1rem 0;
           font-size: 1.3rem;
@@ -131,6 +130,10 @@ const Wrapper = styled.section`
           font-weight: unset;
         }
       }
+      .feature:hover {
+        transition: 0.5s ease-in;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      }     
       // @media screen and (min-width: )
     }
   
