@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require("bcryptjs");
-const validator =  require("validator")
+const validator = require("validator")
 
 const UserSchema = new mongoose.Schema({
   firstName: {
@@ -25,10 +25,6 @@ const UserSchema = new mongoose.Schema({
     minlength: 6,
   },
   verificationToken: String,
-  isVerified: {
-    type: Boolean,
-    default: false,
-  },
   verified: Date,
   imgUrl: {
     type: String,
@@ -38,12 +34,12 @@ const UserSchema = new mongoose.Schema({
 });
 
 
-UserSchema.pre("save", async function() {
+UserSchema.pre("save", async function () {
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt)
 })
 
-UserSchema.methods.confirmPassword = async function(candidatePassword) {
+UserSchema.methods.confirmPassword = async function (candidatePassword) {
   const isMatch = await bcrypt.compare(candidatePassword, this.password);
   return isMatch;
 }

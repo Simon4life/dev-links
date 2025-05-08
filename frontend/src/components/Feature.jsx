@@ -56,7 +56,8 @@ const Features = () => {
 }
 
 const Wrapper = styled.section`
-  
+  margin-top: 2rem;
+  margin-bottom: 2rem;
     padding: 2rem 0;
     p {
       text-align: center;

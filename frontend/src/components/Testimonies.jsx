@@ -33,37 +33,40 @@ const Testimonies = () => {
         Join 20K+ members of devlinks to access its features for <span>free</span>
       </h4>
       <div className='slider-container'>
-        {
-          peoples.map((testimony, index) => {
-            let position = "next-slide";
-            if (index === slideIndex) {
-              position = "active-slide";
-            }
-            if (index === slideIndex - 1 || index === 0 && slideIndex === peoples.length - 1) {
-              position = "last-slide";
-            }
+        <div className="slider-wrapper">
+          {
+            peoples.map((testimony, index) => {
+              let position = "next-slide";
+              if (index === slideIndex) {
+                position = "active-slide";
+              }
+              if (index === slideIndex - 1 || index === 0 && slideIndex === peoples.length - 1) {
+                position = "last-slide";
+              }
 
-            return (
-              <article key={index} className={`${position}`}>
+              return (
+                <article key={index} className={`${position}`}>
 
-                <div className='testimony-content'>
-                  <p>{testimony.text}</p>
-                  <div className='title'>
-                    <img
-                      src={defaultImg}
-                      className='user-img'
-                      alt="user picture"
-                    />
-                    <h5>{testimony.name}</h5>
+                  <div className='testimony-content'>
+                    <p>{testimony.text}</p>
+                    <div className='title'>
+                      <img
+                        src={defaultImg}
+                        className='user-img'
+                        alt="user picture"
+                      />
+                      <h5>{testimony.name}</h5>
+                    </div>
+
                   </div>
 
-                </div>
 
+                </article>
+              );
+            })
+          }
+        </div>
 
-              </article>
-            );
-          })
-        }
       </div>
     </Wrapper>
   );
@@ -83,9 +86,13 @@ const Wrapper = styled.section`
   div.slider-container {
   width: 100%;
   position: relative;
-  height: 100%;
-  // overflow: hidden; /* Ensures child elements don't overflow the border radius */
-
+  height: 300px;
+  overflow: hidden; /* Ensures child elements don't overflow the border radius */
+  .slider-wrapper {
+    display: flex;
+    height: 100%;
+    position: relative;
+  }
   .testimony-content {
     background: white;
     padding: 2rem;
@@ -149,7 +156,7 @@ const Wrapper = styled.section`
   //     top: 0;
   //     left: 0;
   //     width: 100%;
-  //     height: 100%;
+  //     height: 300px;
   //     opacity: 0;
   //     transition: var(--transition);
   //   }

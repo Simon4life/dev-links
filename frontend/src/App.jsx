@@ -1,18 +1,18 @@
-import React, {useState, useEffect} from "react";
-import { Root, ErrorPage, AddNewLink, ProfilePage, PreviewPage, Auth, HomePage} from "./routes";
+import React, { useState, useEffect } from "react";
+import { Root, ErrorPage, AddNewLink, ProfilePage, PreviewPage, Auth, HomePage } from "./routes";
 import { RouterProvider, createBrowserRouter, redirect, } from "react-router-dom";
 import { useUserContext } from "./context/user_context";
 
 const App = () => {
-  const {loginUser, user, registerUser} = useUserContext()
+  const { authAction, user, } = useUserContext()
 
   const authLoader = () => {
-    if(!user) {
+    if (!user) {
       return redirect("/auth");
     }
     return null
   }
-  
+
 
   let router = createBrowserRouter([
     {
@@ -26,7 +26,7 @@ const App = () => {
             if (!user) {
               return redirect("/auth");
             }
-            
+
             return null;
           },
           element: <AddNewLink />,
@@ -49,7 +49,7 @@ const App = () => {
     {
       path: "/auth",
       element: <Auth />,
-      action: loginUser
+      action: authAction
     },
   ]);
   return <RouterProvider router={router} />;
