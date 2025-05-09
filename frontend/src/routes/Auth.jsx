@@ -4,43 +4,17 @@ import { useState } from 'react';
 import { Form, useActionData, useSearchParams } from "react-router-dom";
 
 const Auth = () => {
-  const [formValues, setFormValues] = useState({ firstName: "", lastName: "", email: "", password: "", isMember: false })
+  // const [formValues, setFormValues] = useState({ firstName: "", lastName: "", email: "", password: "", isMember: false })
   const [searchParams] = useSearchParams();
-  const isLogin = searchParams.get('mode') === 'login';
-  const handleChange = (e) => {
-    setFormValues({ ...formValues, [e.target.name]: e.target.value });
-  }
+  const [isLogin, setIsLogin] = useState(searchParams.get('mode') === 'login')
 
   const actionData = useActionData();
 
 
-  // submit user data for authentication
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-
-  //   if(formValues.isMember) {
-  //     const {email, password } = formValues;
-  //     if (!email || !password) return;
-  //     submit({email, password, intent: "login"}, {method: 'POST', action: "/verify",})
-  //   } else {
-  //     const { firstName, lastName, email, password } = formValues;
-  //     if (!firstName || !lastName || !email || !password) return;
-  //     submit(
-  //       { firstName, lastName, email, password, intent: "register" },
-  //       { method: "POST", action: "/verify" }
-  //     );
-  //   } 
-  // }
-
-  // toggle form input
-  const toggleIsLogin = () => {
-    setFormValues({ email: "", firstName: "", lastName: "", password: "", isMember: !formValues.isMember, })
-  }
-
   return (
     <Wrapper>
       <Form method="POST" className="form" >
-        <h2>{formValues.isMember ? "Login" : "Register"}</h2>
+        <h2>{isLogin ? "Login" : "Register"}</h2>
         <input type="hidden" name="mode" value={isLogin ? 'login' : 'register'} />
         {/* Name form input */}
         {!isLogin && (
@@ -94,11 +68,11 @@ const Auth = () => {
         </button>
         <p>{actionData?.error}</p>
         <p>
-          {formValues.isMember
+          {isLogin
             ? "Don't have an Account? "
             : "Already a Member? "}
-          <button type="button" className="form-btn">
-            {formValues.isMember ? "Register" : "Login"}
+          <button type="button" className="form-btn" onClick={() => setIsLogin(!isLogin)}>
+            {isLogin ? "Register" : "Login"}
           </button>
         </p>
       </Form>

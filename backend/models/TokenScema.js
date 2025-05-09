@@ -14,6 +14,12 @@ const TokenSchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
+  userAgent: {
+    type: String
+  },
+  ip: {
+    type: String
+  }
 });
 
 module.exports = mongoose.model("Token", TokenSchema);

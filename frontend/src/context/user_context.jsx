@@ -20,8 +20,6 @@ export const UserProvider = ({ children }) => {
         "/api/v1/auth/register",
         userInfo
       );
-      console.log(userInfo)
-      console.log(response);
       return redirect("/")
 
     } catch (error) {
@@ -36,8 +34,8 @@ export const UserProvider = ({ children }) => {
 
     if (mode === 'login') {
       // login logic
-      const email = userData.get("email")
-      const password = userData.get("password")
+      const email = formData.get("email")
+      const password = formData.get("password")
       return loginUser({ email, password });
     } else if (mode === 'register') {
       const firstName = formData.get("firstName");
@@ -65,21 +63,11 @@ export const UserProvider = ({ children }) => {
     }
   }
 
-  const loginUser = async ({ userInfo }) => {
-    // try {
-    //   const response = await customFetch().post("/api/v1/auth/login", userData);
-    //   const data = response.data.user;
-    //   localStorage.setItem("user", JSON.stringify(data));
-    //   dispatch({type: "LOGIN_USER", payload: data})
-    // } catch (error) {
-    //   console.log(error);
-    //   return null;
-    // }
+  const loginUser = async (userInfo) => {
     try {
-      const response = await customFetch().post("/api/v1/auth/login", { ...userInfo });
-      const data = response.data.user;
-      console.log(data)
-      dispatch({ type: "LOGIN_USER", payload: { user: { name: "simon" } } })
+      const response = await customFetch().post("/api/v1/auth/login", userInfo);
+      console.log(response)
+      // dispatch({ type: "LOGIN_USER", payload: { user: { name: "simon" } } })
       return redirect('/')
     } catch (error) {
       return error;
