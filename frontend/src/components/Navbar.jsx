@@ -1,14 +1,14 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import logo from "../assets/logo.png";
 import { NavLink } from 'react-router-dom';
-import {FaLink, FaUser, FaEye} from "react-icons/fa";
-import {useUserContext} from "../context/user_context"
+import { FaLink, FaUser, FaEye } from "react-icons/fa";
+import { useUserContext } from "../context/user_context"
 
 const Navbar = () => {
-  const {user} = useUserContext();
-  const userId = user.tokenUser.userId;
+  const { user } = useUserContext();
+  const userId = user.useruserId;
   const [screenSize, setScreenSize] = useState(window.innerWidth);
   useEffect(() => {
     window.addEventListener("resize", () => setScreenSize(window.innerWidth));
@@ -20,7 +20,7 @@ const Navbar = () => {
         <div>
           <Link to={"/"} className="logo">
             <img src={logo} className="logo-img" />
-            {screenSize > 570 ?  <h4>devlinks</h4> : null}
+            {screenSize > 570 ? <h4>devlinks</h4> : null}
           </Link>
         </div>
         <div className="nav-center">
@@ -36,7 +36,7 @@ const Navbar = () => {
         </div>
         <div>
           <Link to={`/preview/${userId}`} className="preview-btn">
-            {screenSize > 570 ? "Preview" : <FaEye/>}
+            {screenSize > 570 ? "Preview" : <FaEye />}
           </Link>
         </div>
       </div>
@@ -104,7 +104,7 @@ const Wrapper = styled.nav`
   }
 `;
 
-const activeLinkStyle = ({isActive, isPending}) => {
+const activeLinkStyle = ({ isActive, isPending }) => {
   return {
     background: isActive ? "var(--clr-purple-light)" : "inherit",
     color: isActive ? "var(--clr-purple)" : "inherit"

@@ -1,28 +1,29 @@
 const jwt = require("jsonwebtoken");
 
 const createJWT = (payload, secret, lifeTime) => {
-  return jwt.sign(payload, secret, {expiresIn: lifeTime});
+  return jwt.sign(payload, secret, { expiresIn: lifeTime });
 }
 
 const verifyUserToken = (token, secret) => {
   return jwt.verify(token, secret);
 }
 
-const addCookieToResponse = async({res, user, token}) => {
+const addCookieToResponse = async ({ res, user, token }) => {
   const refreshToken = createJWT(
-    {token, email: user.email}, 
-    process.env.REFRESH_TOKEN_SECRET, 
+    { token, email: user.email },
+    process.env.REFRESH_TOKEN_SECRET,
     process.env.REFRESH_TOKEN_LIFETIME
   );
 
   res.cookie('refreshToken', refreshToken, {
     httpOnly: true,
     expires: new Date(Date.now() + 1000 * 60 * 60 * 30),
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: "None",
+    // secure: process.env.NODE_ENV === 'production',
+    sameSite: "Lax",
     signed: true,
+    secure: false
   });
-
+  console.log(res.cookies)
 }
 
-module.exports = {createJWT, verifyUserToken, addCookieToResponse}
+module.exports = { createJWT, verifyUserToken, addCookieToResponse }

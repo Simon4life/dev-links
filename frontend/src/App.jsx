@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Root, ErrorPage, AddNewLink, ProfilePage, PreviewPage, Auth, HomePage } from "./routes";
-import { RouterProvider, createBrowserRouter, redirect, } from "react-router-dom";
+import { RouterProvider, createBrowserRouter, redirect, Navigate } from "react-router-dom";
 import { useUserContext } from "./context/user_context";
 
 const App = () => {
@@ -14,26 +14,36 @@ const App = () => {
   }
 
 
+  const ProtectedRoute = ({ children }) => {
+    // const { user, loading } = useAuth();
+    const loading = false;
+    // const user = {
+    //   name: "simon"
+    // }
+    if (loading) return <p>Loading...</p>;
+    return user ? children : <Navigate to="/auth" />;
+  };
+
   let router = createBrowserRouter([
     {
       path: "/",
-      element: <Root />,
-      errorElement: <ErrorPage />,
+      element: <ProtectedRoute><Root /></ProtectedRoute>,
+      // errorElement: <ErrorPage />,
       children: [
         {
           index: true,
-          loader: async () => {
-            if (!user) {
-              return redirect("/auth");
-            }
+          // loader: async () => {
+          //   if (!user) {
+          //     return redirect("/auth");
+          //   }
 
-            return null;
-          },
+          //   return null;
+          // },
           element: <AddNewLink />,
         },
         {
           path: "profile",
-          loader: authLoader,
+          // loader: authLoader,
           element: <ProfilePage />,
         },
       ],

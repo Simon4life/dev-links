@@ -4,7 +4,7 @@ import reducer from "../reducers/user_reducer";
 import { redirect } from "react-router-dom";
 
 const initialState = {
-  user: JSON.parse(localStorage.getItem("user")) || null,
+  user: null,
   isLoading: false,
   errorMessage: null,
 };
@@ -16,12 +16,13 @@ export const UserProvider = ({ children }) => {
 
   const registerUser = async (userInfo) => {
     try {
-      const response = await customFetch().post(
+      await customFetch().post(
         "/api/v1/auth/register",
         userInfo
-      );
-      return redirect("/")
-
+      ).then((value) => {
+        dispatch({ type: "REGISTER_USER", payload: value.data.user })
+      })
+      return redirect("/");
     } catch (error) {
       console.log(error);
     }
