@@ -70,6 +70,20 @@ const registerUser = async (req, res) => {
   });
 };
 
+const getUser = async (req, res) => {
+  const userId = req.user.userId;
+  const user = await User.findById(userId);
+  const tokenUser = {
+    email: user.email,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    userId: user._id.toString()
+  }
+  if (user) {
+    res.status(StatusCodes.OK).json({ user: tokenUser })
+  }
+}
+
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
@@ -128,4 +142,5 @@ module.exports = {
   loginUser,
   registerUser,
   logoutUser,
+  getUser
 }

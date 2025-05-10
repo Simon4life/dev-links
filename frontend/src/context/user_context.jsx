@@ -5,7 +5,7 @@ import { redirect } from "react-router-dom";
 
 const initialState = {
   user: null,
-  isLoading: false,
+  isLoading: true,
   errorMessage: null,
 };
 
@@ -13,6 +13,27 @@ const UserContext = React.createContext();
 
 export const UserProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+
+
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const res = await customFetch().get("/api/v1/auth/get-user")
+        if (res.statusText === "OK") {
+          dispatch({ type: "GET_USER", payload: res.data.user })
+        } else {
+          dispatch({ type: "GET_USER", payload: null })
+        }
+      } catch (err) {
+        dispatch({ type: "GET_USER", payload: null })
+      } finally {
+        dispatch({ type: "TOGGLE_LOADING" });
+      }
+
+    }
+    fetchUser();
+  }, [])
 
   const registerUser = async (userInfo) => {
     try {
@@ -30,9 +51,9 @@ export const UserProvider = ({ children }) => {
   }
 
   const authAction = async ({ request }) => {
+    console.log(initialState)
     const formData = await request.formData();
     const mode = formData.get('mode')
-
     if (mode === 'login') {
       // login logic
       const email = formData.get("email")

@@ -8,7 +8,7 @@ const jwt = require("jsonwebtoken");
 const authorizeUser = async (req, res, next) => {
   // const accessToken = req.headers.authorization.split(" ")[1];
   const refreshToken = req.signedCookies.refreshToken;
-
+  console.log(refreshToken)
   // if (!accessToken) {
   //   return res.status(StatusCodes.FORBIDDEN).json({ message: "Invalid credentials" })
   // }
@@ -31,7 +31,7 @@ const authorizeUser = async (req, res, next) => {
     lastName: user.lastName,
     userId: user._id.toString(),
   };
-  addCookieToResponse({ res, user: tokenUser, token: existingToken.token });
+  // addCookieToResponse({ res, user: tokenUser, token: existingToken.token });
   req.user = tokenUser;
   return next();
   // if (payload && payload.exp) {

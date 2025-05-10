@@ -4,23 +4,11 @@ import { RouterProvider, createBrowserRouter, redirect, Navigate } from "react-r
 import { useUserContext } from "./context/user_context";
 
 const App = () => {
-  const { authAction, user, } = useUserContext()
-
-  const authLoader = () => {
-    if (!user) {
-      return redirect("/auth");
-    }
-    return null
-  }
-
+  const { authAction, user, IsLoading } = useUserContext()
 
   const ProtectedRoute = ({ children }) => {
-    // const { user, loading } = useAuth();
-    const loading = false;
-    // const user = {
-    //   name: "simon"
-    // }
-    if (loading) return <p>Loading...</p>;
+    console.log(IsLoading)
+    if (IsLoading) return <p>Loading...</p>;
     return user ? children : <Navigate to="/auth" />;
   };
 
