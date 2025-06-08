@@ -8,12 +8,8 @@ const verifyUserToken = (token, secret) => {
   return jwt.verify(token, secret);
 }
 
-const addCookieToResponse = async ({ res, user, token }) => {
-  const refreshToken = createJWT(
-    { token, email: user.email, id: user.userId },
-    process.env.REFRESH_TOKEN_SECRET,
-    process.env.REFRESH_TOKEN_LIFETIME
-  );
+const addCookieToResponse = async ({ res, token }) => {
+  const refreshToken = createJWT({token}, process.env.REFRESH_TOKEN_SECRET, process.env.REFRESH_TOKEN_LIFETIME)
 
   res.cookie('refreshToken', refreshToken, {
     httpOnly: true,
@@ -23,7 +19,6 @@ const addCookieToResponse = async ({ res, user, token }) => {
     signed: true,
     secure: false
   });
-  console.log(res.cookies)
 }
 
 module.exports = { createJWT, verifyUserToken, addCookieToResponse }

@@ -4,7 +4,7 @@ import reducer from "../reducers/user_reducer";
 import { redirect } from "react-router-dom";
 
 const initialState = {
-  user: null,
+  user: JSON.parse(localStorage.getItem("user")) || null,
   isLoading: true,
   errorMessage: null,
 };
@@ -16,24 +16,24 @@ export const UserProvider = ({ children }) => {
 
 
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const res = await customFetch().get("/api/v1/auth/get-user")
-        if (res.statusText === "OK") {
-          dispatch({ type: "GET_USER", payload: res.data.user })
-        } else {
-          dispatch({ type: "GET_USER", payload: null })
-        }
-      } catch (err) {
-        dispatch({ type: "GET_USER", payload: null })
-      } finally {
-        dispatch({ type: "TOGGLE_LOADING" });
-      }
+  // useEffect(() => {
+  //   const fetchUser = async () => {
+  //     try {
+  //       const res = await customFetch().get("/api/v1/auth/get-user")
+  //       if (res.statusText === "OK") {
+  //         dispatch({ type: "GET_USER", payload: res.data.user })
+  //       } else {
+  //         dispatch({ type: "GET_USER", payload: null })
+  //       }
+  //     } catch (err) {
+  //       dispatch({ type: "GET_USER", payload: null })
+  //     } finally {
+  //       dispatch({ type: "TOGGLE_LOADING" });
+  //     }
 
-    }
-    fetchUser();
-  }, [])
+  //   }
+  //   fetchUser();
+  // }, [])
 
   const registerUser = async (userInfo) => {
     try {
@@ -42,6 +42,8 @@ export const UserProvider = ({ children }) => {
         userInfo
       ).then((value) => {
         dispatch({ type: "REGISTER_USER", payload: value.data.user })
+        
+        localStorage.setItem("user", JSON.stringify(value.data.user))
       })
       return redirect("/");
     } catch (error) {
@@ -88,8 +90,9 @@ export const UserProvider = ({ children }) => {
   const loginUser = async (userInfo) => {
     try {
       const response = await customFetch().post("/api/v1/auth/login", userInfo);
-      console.log(response)
-      // dispatch({ type: "LOGIN_USER", payload: { user: { name: "simon" } } })
+      dispatch({ type: "REGISTER_USER", payload: response.data.user })
+      localStorage.setItem("accessToken", JSON.stringify(response.data.accessToken))
+      localStorage.setItem("user", JSON.stringify(response.data.user))
       return redirect('/')
     } catch (error) {
       return error;

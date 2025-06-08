@@ -19,7 +19,7 @@ const registerUser = async (req, res) => {
 
   const emailExists = await User.findOne({ email });
   if (emailExists) {
-    res.status(StatusCodes.BAD_REQUEST).json({ "message": "Email already exists" })
+    return res.status(StatusCodes.BAD_REQUEST).json({ message: "Email already exists" });
   }
 
   const verificationToken = crypto.randomBytes(40).toString("hex");
@@ -46,6 +46,7 @@ const registerUser = async (req, res) => {
     process.env.ACCESS_TOKEN_LIFETIME
   );
 
+
   // Create and store refresh token
   const refreshToken = crypto.randomBytes(40).toString("hex");
 
@@ -56,8 +57,8 @@ const registerUser = async (req, res) => {
     ip: req.ip,
     isValid: true
   });
+  
 
-  // Attach cookies (access + refresh)
   addCookieToResponse({
     res,
     user: tokenUser,
@@ -88,17 +89,17 @@ const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
-    res.status(StatusCodes.BAD_REQUEST).json({ "message": "Please provide valid values" })
+    return res.status(StatusCodes.BAD_REQUEST).json({ "message": "Please provide valid values" })
   }
 
   const user = await User.findOne({ email })
   if (!user) {
-    throw new CustomError.BadRequestError("User does not exists")
+   return res.status(StatusCodes.NOT_FOUND("User does not exists"));
   }
 
   const verifyPassword = await user.confirmPassword(password);
   if (!verifyPassword) {
-    throw new CustomError.UnauthenticatedError("Invalid credentials")
+    return res.status(StatusCodes.FORBIDDEN("Invalid credentials"));
   }
 
   const tokenUser = {
@@ -121,9 +122,8 @@ const loginUser = async (req, res) => {
       process.env.ACCESS_TOKEN_LIFETIME
     );
     token = existingToken.token;
-    addCookieToResponse({ res, user: tokenUser, token });
-    res.status(StatusCodes.OK).json({ user: { tokenUser, accessToken } });
-    return;
+    addCookieToResponse({ res, token });
+    return res.status(StatusCodes.OK).json({  user: tokenUser, accessToken  });
   }
 
 }
