@@ -10,7 +10,6 @@ const verifyUserToken = (token, secret) => {
 
 const addCookieToResponse = async ({ res, token }) => {
   const refreshToken = createJWT({token}, process.env.REFRESH_TOKEN_SECRET, process.env.REFRESH_TOKEN_LIFETIME)
-
   res.cookie('refreshToken', refreshToken, {
     httpOnly: true,
     expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),

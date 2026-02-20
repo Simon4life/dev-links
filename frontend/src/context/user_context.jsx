@@ -13,47 +13,41 @@ const UserContext = React.createContext();
 
 export const UserProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  
+  const fetchUser = async () => {
+    try {
+      const res = await customFetch().get("/api/v1/auth/get-user")
+      if (res.statusText === "OK") {
+        dispatch({ type: "GET_USER", payload: res.data.user })
+      } else {
+        dispatch({ type: "GET_USER", payload: null })
+      }
+      } catch (err) {
+        dispatch({ type: "GET_USER", payload: null })
+      } finally {
+        dispatch({ type: "TOGGLE_LOADING" });
+      }
 
-
-
-  // useEffect(() => {
-  //   const fetchUser = async () => {
-  //     try {
-  //       const res = await customFetch().get("/api/v1/auth/get-user")
-  //       if (res.statusText === "OK") {
-  //         dispatch({ type: "GET_USER", payload: res.data.user })
-  //       } else {
-  //         dispatch({ type: "GET_USER", payload: null })
-  //       }
-  //     } catch (err) {
-  //       dispatch({ type: "GET_USER", payload: null })
-  //     } finally {
-  //       dispatch({ type: "TOGGLE_LOADING" });
-  //     }
-
-  //   }
-  //   fetchUser();
-  // }, [])
+    }
 
   const registerUser = async (userInfo) => {
     try {
-      await customFetch().post(
-        "/api/v1/auth/register",
-        userInfo
-      ).then((value) => {
-        dispatch({ type: "REGISTER_USER", payload: value.data.user })
-        
-        localStorage.setItem("user", JSON.stringify(value.data.user))
-      })
-      return redirect("/");
-    } catch (error) {
-      console.log(error);
-    }
-
+        await customFetch().post(
+          "/api/v1/auth/register",
+          userInfo
+        ).then((value) => {
+          const {user, accessToken} = value.data;
+          dispatch({ type: "REGISTER_USER", payload: user })
+          localStorage.setItem("user", JSON.stringify({...user, accessToken}))
+        })
+        return redirect("/");
+      } catch (error) {
+        console.log(error);
+        return null
+      }
   }
 
   const authAction = async ({ request }) => {
-    console.log(initialState)
     const formData = await request.formData();
     const mode = formData.get('mode')
     if (mode === 'login') {
@@ -66,7 +60,7 @@ export const UserProvider = ({ children }) => {
       const lastName = formData.get("lastName");
       const email = formData.get("email");
       const password = formData.get("password");
-      return registerUser({ firstName, lastName, email, password });
+      return registerUser({firstName, lastName, email, password})
     }
   }
 
@@ -100,7 +94,7 @@ export const UserProvider = ({ children }) => {
   }
 
   return (
-    <UserContext.Provider value={{ ...state, registerUser, authAction, loginUser, updateUserProfile }}>
+    <UserContext.Provider value={{ ...state, fetchUser, registerUser, authAction, loginUser, updateUserProfile }}>
       {children}
     </UserContext.Provider>
   );

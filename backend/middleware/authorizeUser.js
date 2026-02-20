@@ -12,10 +12,11 @@ const authorizeUser = async (req, res, next) => {
   
   if(!accessToken) return res.status(StatusCodes.BAD_REQUEST).json({msg: "access token not found"})
     
-  jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
+  jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, async (err, decoded) => {
     if(err) {
       // access token expired -- try refresh
       const refreshToken = req.cookies.refreshToken;
+
       if(!refreshToken) return res.status(StatusCodes.NOT_FOUND).json({msg: "refresh token not found"});
       jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, async (err, decodedRefresh) => {
         if(err) return res.status(StatusCodes.BAD_REQUEST).json({msg: ""})
@@ -29,6 +30,11 @@ const authorizeUser = async (req, res, next) => {
       })
     } else {
         req.user = decoded;
+        const userId = decoded.userId
+        console.log(userId)
+        const refreshTokenUser = await Token.findOne({ userId, isValid: true });
+        addCookieToResponse(res, refreshTokenUser.token, process.env.REFRESH_TOKEN_SECRET, process.env.REFRESH_TOKEN_LIFETIME);
+        req.userId = userId;
         next()
     }
   })

@@ -2,23 +2,20 @@ import React, {useEffect} from 'react';
 import styled from "styled-components";
 import Phone from "../components/Phone";
 import LinksForm from '../components/LinkForm';
-import {useLinksContext} from "../context/links_context";;
+import {useLinksContext} from "../context/links_context";
 import {useQuery} from "@tanstack/react-query"
-
+import customFetch from '../utils/customFetch';
+import { useLoaderData } from 'react-router-dom';
 const AddNewLink = () => {
   const {addLink, getLinks} = useLinksContext();
-  
-  const {isLoading, error} = useQuery({
-    queryKey: ["links"],
-    queryFn: getLinks,
-  });
-  
-  if(isLoading) {
-    return <h2>Loading</h2>
-  }
-  if(error) {
-    console.log(error);
-  }
+  const loaderData = useLoaderData();
+  console.log(loaderData)
+  // if(isLoading) {
+  //   return <h2>Loading</h2>
+  // }
+  // if(error) {
+  //   console.log(error);
+  // }
 
   return (
     <Wrapper>

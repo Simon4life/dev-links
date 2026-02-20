@@ -12,7 +12,6 @@ const { createJWT } = require("../utils/jwt");
 
 const registerUser = async (req, res) => {
   const { email, firstName, lastName, password } = req.body;
-
   if (!email || !firstName || !lastName || !password) {
     throw new BadRequestError("Please provide all required credentials.");
   }
@@ -67,7 +66,7 @@ const registerUser = async (req, res) => {
 
   res.status(StatusCodes.CREATED).json({
     user: tokenUser,
-    accessToken
+    accessToken: accessToken
   });
 };
 
