@@ -47,10 +47,10 @@ const registerUser = async (req, res) => {
 
 
   // Create and store refresh token
-  const refreshToken = crypto.randomBytes(40).toString("hex");
+  const rand = crypto.randomBytes(40).toString("hex");
 
   await Token.create({
-    token: refreshToken,
+    token: rand,
     userId: user._id,
     userAgent: req.headers["user-agent"],
     ip: req.ip,
@@ -59,9 +59,8 @@ const registerUser = async (req, res) => {
   
 
   addCookieToResponse({
-    res,
-    user: tokenUser,
-    token: refreshToken // stored in cookies
+    res: res,
+    token: rand// stored in cookies
   });
 
   res.status(StatusCodes.CREATED).json({

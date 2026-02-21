@@ -17,7 +17,7 @@ const addCookieToResponse = async ({ res, token }) => {
     sameSite: "Lax",
     signed: true,
     secure: false
-  });
+  }); 
 }
 
 module.exports = { createJWT, verifyUserToken, addCookieToResponse }

@@ -2,7 +2,7 @@ import React, { useContext, useReducer, useEffect } from "react";
 import customFetch from "../utils/customFetch"
 import reducer from "../reducers/user_reducer";
 import { redirect } from "react-router-dom";
-
+import axios from "axios";
 const initialState = {
   user: JSON.parse(localStorage.getItem("user")) || null,
   isLoading: true,
@@ -31,20 +31,18 @@ export const UserProvider = ({ children }) => {
     }
 
   const registerUser = async (userInfo) => {
-    try {
-        await customFetch().post(
-          "/api/v1/auth/register",
-          userInfo
-        ).then((value) => {
-          const {user, accessToken} = value.data;
-          dispatch({ type: "REGISTER_USER", payload: user })
-          localStorage.setItem("user", JSON.stringify({...user, accessToken}))
-        })
-        return redirect("/");
-      } catch (error) {
-        console.log(error);
-        return null
-      }
+
+   try {
+      await axios.post("http://localhost:5000/api/v1/auth/register", userInfo, {withCredentials: true}).then((response) => {
+        const {user, accessToken} = response.data;
+        dispatch({ type: "REGISTER_USER", payload: user });
+        localStorage.setItem("user", JSON.stringify({...user, accessToken}));
+        
+      })  
+   } catch (error) {
+    console.log(error)
+    return null
+   }
   }
 
   const authAction = async ({ request }) => {
@@ -60,7 +58,14 @@ export const UserProvider = ({ children }) => {
       const lastName = formData.get("lastName");
       const email = formData.get("email");
       const password = formData.get("password");
-      return registerUser({firstName, lastName, email, password})
+      if(!firstName || !lastName || !email || !password) {
+        console.log("invalid credentials")
+        return null
+      } else {
+        await registerUser({firstName, lastName, email, password})
+        return redirect("/")
+      }
+      
     }
   }
 

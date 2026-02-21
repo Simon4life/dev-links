@@ -15,13 +15,12 @@ const authorizeUser = async (req, res, next) => {
   jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, async (err, decoded) => {
     if(err) {
       // access token expired -- try refresh
-      const refreshToken = req.cookies.refreshToken;
-
+      
       if(!refreshToken) return res.status(StatusCodes.NOT_FOUND).json({msg: "refresh token not found"});
       jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, async (err, decodedRefresh) => {
         if(err) return res.status(StatusCodes.BAD_REQUEST).json({msg: ""})
-        console.log(req)
         const userId = req.userId
+      console.log("helo")
         const tokenUser = await User.findOne({userId});
         const newAccessToken = createJWT(tokenUser, process.env.ACCESS_TOKEN_SECRET, process.env.ACCESS_TOKEN_LIFETIME);
         res.setHeader("x-access-token", newAccessToken);
@@ -30,8 +29,8 @@ const authorizeUser = async (req, res, next) => {
       })
     } else {
         req.user = decoded;
+        console.log(req.user)
         const userId = decoded.userId
-        console.log(userId)
         const refreshTokenUser = await Token.findOne({ userId, isValid: true });
         addCookieToResponse(res, refreshTokenUser.token, process.env.REFRESH_TOKEN_SECRET, process.env.REFRESH_TOKEN_LIFETIME);
         req.userId = userId;
