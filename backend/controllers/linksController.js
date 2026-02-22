@@ -14,7 +14,6 @@ const getAllLinks = async (req, res) => {
     acc.push(...curr.links,);
     return acc;
   }, []);
-  console.log(links)
   res.status(StatusCodes.OK).json({links})
 }
 

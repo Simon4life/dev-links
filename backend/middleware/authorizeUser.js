@@ -24,17 +24,17 @@ const authorizeUser = async (req, res, next) => {
         }
         const userId = req.userId;
         const {firstName, email, lastName, _id} = await User.findOne({userId});
-        const tokenUserObj = {firstName: firstName, lastName: lastName, email: email, _id: _id.toString()}
+        const tokenUserObj = {firstName: firstName, lastName: lastName, email: email, id: _id.toString()}
         const newAccessToken = createJWT(tokenUserObj, process.env.ACCESS_TOKEN_SECRET, process.env.ACCESS_TOKEN_LIFETIME);
         res.setHeader("x-access-token", newAccessToken);
-        req.user = {userId: decodedRefresh}
+        req.user = {userId: tokenUserObj.id}
         next()
       })
     } else {
         req.user = decoded;
         const userId = decoded.userId
         const refreshTokenUser = await Token.findOne({ userId, isValid: true });
-        addCookieToResponse(res, refreshTokenUser.token, process.env.REFRESH_TOKEN_SECRET, process.env.REFRESH_TOKEN_LIFETIME);
+        addCookieToResponse({res:res, token: refreshTokenUser.token});
         req.userId = userId;
         next()
     }
