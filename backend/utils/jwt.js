@@ -8,7 +8,8 @@ const verifyUserToken = (token, secret) => {
   return jwt.verify(token, secret);
 }
 
-const addCookieToResponse = async ({ res, token }) => {
+const addCookieToResponse = ({ res, token }) => {
+  console.log(token)
   const refreshToken = createJWT({token}, process.env.REFRESH_TOKEN_SECRET, process.env.REFRESH_TOKEN_LIFETIME)
   res.cookie('refreshToken', refreshToken, {
     httpOnly: true,
