@@ -19,7 +19,6 @@ const App = () => {
           loader: async () => {
             if(user) {
               const response = await customFetch().get("/api/v1/links");
-              console.log("hello")
               const { links } = response.data;
               return links;
             } else {

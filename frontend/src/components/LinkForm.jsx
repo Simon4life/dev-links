@@ -5,7 +5,7 @@ import { useLinksContext } from '../context/links_context';
 
 const LinkForm = () => {
   const {formLinksArr, createLink} = useLinksContext();
-
+console.log(formLinksArr)
   const handleSubmit = (e) => {
     e.preventDefault();
     const areFieldsEmpty = formLinksArr.some(item => item.link === "");

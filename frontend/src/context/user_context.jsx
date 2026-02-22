@@ -63,7 +63,6 @@ export const UserProvider = ({ children }) => {
         return null
       } else {
         await registerUser({firstName, lastName, email, password})
-        return redirect("/")
       }
       
     }
@@ -88,14 +87,16 @@ export const UserProvider = ({ children }) => {
 
   const loginUser = async (userInfo) => {
     try {
-      const response = await customFetch().post("/api/v1/auth/login", userInfo);
-      dispatch({ type: "REGISTER_USER", payload: response.data.user })
-      localStorage.setItem("accessToken", JSON.stringify(response.data.accessToken))
-      localStorage.setItem("user", JSON.stringify(response.data.user))
-      return redirect('/')
-    } catch (error) {
-      return error;
-    }
+      await axios.post("http://localhost:5000/api/v1/auth/login", userInfo, {withCredentials: true}).then((response) => {
+        const {user, accessToken} = response.data;
+        dispatch({ type: "LOGIN_USER", payload: user });
+        localStorage.setItem("user", JSON.stringify({...user, accessToken}));
+      })  
+      return redirect("/")
+   } catch (error) {
+    console.log(error)
+    return null
+   }
   }
 
   return (

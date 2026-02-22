@@ -92,7 +92,7 @@ const loginUser = async (req, res) => {
 
   const user = await User.findOne({ email })
   if (!user) {
-   return res.status(StatusCodes.NOT_FOUND("User does not exists"));
+   return res.status(StatusCodes.NOT_FOUND).json({message: "User does not exists"});
   }
 
   const verifyPassword = await user.confirmPassword(password);

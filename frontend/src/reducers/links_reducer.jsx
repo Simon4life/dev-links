@@ -34,7 +34,8 @@ const links_reducer = (state, action) => {
     return {...state, formLinksArr: newFormLinksArr}
   }
   if(action.type === "CREATE_LINK") {
-    return {...state, formLinksArr: action.payload}
+    console.log(action.payload)
+    return {...state, formLinksArr: action.payload.links}
   }
 }
 
