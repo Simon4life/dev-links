@@ -8,7 +8,7 @@ import { useUserContext } from '../context/user_context';
 
 const ProfilePage = () => {
   const { user } = useUserContext();
-  const { userId } = user.tokenUser;
+  const { userId } = user;
   const { isLoading, error, data } = useQuery({
     queryKey: ["profile"],
     queryFn: async () => {

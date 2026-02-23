@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-
+import {FaInstagram, FaTwitter, FaYoutube} from "react-icons/fa"
 const FooterWrapper = styled.footer`
   background: #ffffff;
   padding: 80px 0 40px;
@@ -188,17 +188,17 @@ export default function Footer() {
           <BrandSection>
             <Logo>
               <LogoIcon>🔗</LogoIcon>
-              <BrandName>LinkShare</BrandName>
+              <BrandName>Devlinks</BrandName>
             </Logo>
             <Description>
-              Empowering creators to share their passions through one simple,
+              Empowering developers to share their passions through one simple,
               beautiful link. Join the revolution.
             </Description>
 
             <SocialIcons>
-              <SocialButton href="#">T</SocialButton>
-              <SocialButton href="#">I</SocialButton>
-              <SocialButton href="#">Y</SocialButton>
+              <SocialButton href="#"><FaInstagram/></SocialButton>
+              <SocialButton href="#"><FaTwitter/></SocialButton>
+              <SocialButton href="#"><FaYoutube/></SocialButton>
             </SocialIcons>
           </BrandSection>
 
@@ -209,16 +209,6 @@ export default function Footer() {
               <li><FooterLink href="#">Careers</FooterLink></li>
               <li><FooterLink href="#">Press</FooterLink></li>
               <li><FooterLink href="#">Blog</FooterLink></li>
-            </LinkList>
-          </Column>
-
-          <Column>
-            <ColumnTitle>Product</ColumnTitle>
-            <LinkList>
-              <li><FooterLink href="#">Features</FooterLink></li>
-              <li><FooterLink href="#">Templates</FooterLink></li>
-              <li><FooterLink href="#">Pricing</FooterLink></li>
-              <li><FooterLink href="#">Developers</FooterLink></li>
             </LinkList>
           </Column>
 
@@ -235,7 +225,7 @@ export default function Footer() {
 
         <BottomBar>
           <Copyright>
-            © 2024 LinkShare Inc. All rights reserved.
+            © 2026 LinkShare Inc. All rights reserved.
           </Copyright>
 
           <LanguageSelector>

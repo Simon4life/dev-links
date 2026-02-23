@@ -27,7 +27,7 @@ const ProfileForm = ({formValues}) => {
   }
 
   return (
-    <Wrapper onSubmit={handleSubmit} backgroundimage={formValues.profilePicture}>
+    <Wrapper onSubmit={handleSubmit} backgroundimage={defaultImg}>
       <div>
         <label className="profile-picture" htmlFor="profile-picture">
           Profile Picture

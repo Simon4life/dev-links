@@ -17,7 +17,7 @@ export default [
     name: "Jane bitrus",
     job: "Developer",
     imgUrl: "../assets/Screenshot.png",
-    text: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fuga recusa?",
+    text: "Lorem ipsum dolor sit amet consectetur, adipisicing elit.",
     rating: ["⭐", "⭐", "⭐", "⭐", "⭐"]
   },
 ];

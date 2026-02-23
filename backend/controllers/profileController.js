@@ -2,6 +2,7 @@ const User = require("../models/User");
 const cloudinary = require("cloudinary").v2;
 const {StatusCodes} = require("http-status-codes");
 const fs = require("fs");
+const { STATUS_CODES } = require("http");
 
 const updateUserProfile = async (req, res) => {
   const {userId} = req.user;
@@ -19,13 +20,15 @@ const updateUserProfile = async (req, res) => {
 
 const getUserProfile = async (req, res) => {
   const {userId} = req.params;
-  const user = await User.findOne({_id: userId})
-  if(user) {
-    const {firstName, lastName, email, imgUrl} = user;
-    res.status(StatusCodes.OK).json({user: {firstName, lastName, email, profilePicture: imgUrl}})
-  } else {
-    res.status(StatusCodes.NOT_FOUND).json({ message: "User not found" });
-  }
+  console.log(userId)
+  res.status(StatusCodes.OK).json({message: "hello"})
+  // const user = await User.findOne({_id: userId})
+  // if(user) {
+  //   const {firstName, lastName, email, imgUrl} = user;
+  //   res.status(StatusCodes.OK).json({user: {firstName, lastName, email, profilePicture: imgUrl}})
+  // } else {
+  //   res.status(StatusCodes.NOT_FOUND).json({ message: "User not found" });
+  // }
 }
 
 

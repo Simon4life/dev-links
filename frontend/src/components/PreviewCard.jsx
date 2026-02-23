@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Links from './Link';
 import defaultImg from "../assets/default.jpg"
 const PreviewCard = ({user}) => {
-  const {profilePicture, firstName, lastName, email} = user;
+  const { firstName, lastName, email} = user;
   return (
     <Wrapper>
       <img src={defaultImg} alt="profile-picture" />
