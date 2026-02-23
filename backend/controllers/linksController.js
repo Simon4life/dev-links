@@ -64,6 +64,7 @@ const deleteLink = async (req, res) => {
   const {userId} = req.user;
 
   let userLinks = await Links.findOne({createdBy: userId})
+  console.log(userLinks)
   if(userLinks) {
   const linkIndex = userLinks.links.findIndex(link => link._id.toString() === linkId);
   
@@ -75,8 +76,6 @@ const deleteLink = async (req, res) => {
     res.status(StatusCodes.OK).json(userLinks);
   }
   }
-
-  res.status(StatusCodes.OK).json({message: "nothing here"})
   
 }
 
