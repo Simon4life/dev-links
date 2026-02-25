@@ -7,7 +7,6 @@ import {FaBars} from "react-icons/fa";
 const LandingNav = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const toggleSidebar = () => {
-    console.log('hello')
     setIsSidebarOpen(!isSidebarOpen)
   }
   return (
@@ -18,12 +17,18 @@ const LandingNav = () => {
             <img src={logo} alt="dev-links logo" className="logo" />
             <h3>Devlinks</h3>
           </Link>
-          <button className="nav-toggle" onClick={toggleSidebar}>
+          {/* <button className="nav-toggle" onClick={toggleSidebar}>
             <FaBars />
-          </button>
+          </button> */}
         </div>
       
-        <div className={`${isSidebarOpen ? "links-container show-sidebar": "links-container"}`} >
+        <div className='auth-container'>
+            <Link className="btn" to="/auth">
+              Login/Register
+            </Link>
+        </div>
+
+        {/* <div className={`${isSidebarOpen ? "links-container show-sidebar": "links-container"}`} >
           <div className="sidebar-header">
             <Link to="/" className="logo-container">
               <img src={logo} alt="dev-links logo" className="logo" />
@@ -41,12 +46,8 @@ const LandingNav = () => {
               <Link>Services</Link>
             </li>
           </ul>
-          <div>
-            <Link className="btn" to="/auth">
-              Register
-            </Link>
-          </div>
-        </div>
+        </div> */}
+        
       </div>
     </Wrapper>
   );
@@ -55,13 +56,12 @@ const LandingNav = () => {
 const Wrapper = styled.nav`
   background: var(--clr-white);
   .nav-center {
-  
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.5rem 1rem;
-  max-width: 1200px;
+  padding: 0.5rem;
   margin: 0 auto;
+  max-width: 1200px;
 
   img {
     width: 60px;
@@ -70,9 +70,8 @@ const Wrapper = styled.nav`
   .nav-header {
     display: flex;
     align-items: center;
-    width: 100%;
     justify-content: space-between;
-
+    width: 100%;
     .logo-container {
       display: flex;
       align-items: center;
@@ -106,15 +105,32 @@ const Wrapper = styled.nav`
     transform: translateX(-100%);
     transition: transform 0.5s ease;
     z-index: 999;
-
+    .logo-container {
+      display: flex;
+      align-items: center;
+      margin-left: 1rem;
+      margin-bottom: 1.2rem;
+      h3 {
+        margin-bottom: 0;
+        margin-left: 0.5rem;
+        color: black;
+      }
+    }
     ul {
       margin-left: 1.5rem;
 
       li a {
         color: var(--clr-black);
         font-weight: bold;
-        display: inline-block;
-        margin-bottom: 0.8rem;
+        display: block;
+        margin-bottom: 1.2rem;
+        width: 100%;
+        padding: 0.4rem;
+        border-radius: 0.3rem;
+        transition: ease-in;
+      }
+      li a:hover {
+        background: purple;
       }
     }
 
@@ -130,10 +146,11 @@ const Wrapper = styled.nav`
   .show-sidebar {
     transform: translateX(0);
   }
-
   @media (min-width: 768px) {
+    .logo-container h3 {
+      margin: 0;
+    }
     flex-direction: row;
-
     .nav-header {
       .nav-toggle {
         display: none;

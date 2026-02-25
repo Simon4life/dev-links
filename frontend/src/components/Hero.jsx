@@ -47,7 +47,7 @@ const Wrapper = styled.section`
   }
   .hero-texts {
     h2 {
-      font-size: 1.8rem;
+      font-size: 3rem;
       span {
         color: var(--clr-purple);
       }
@@ -55,6 +55,7 @@ const Wrapper = styled.section`
     p {
       margin: 1.6rem 0;
       letter-spacing: var(--letterSpacing);
+      font-size: 1.2rem;
     }
   }
 
@@ -64,6 +65,7 @@ const Wrapper = styled.section`
     text-transform: unset;
     display: flex;
     align-items: center;
+    font-size: 1rem;
     width: fit-content;
     .arrow-right {
       display: inline-block;

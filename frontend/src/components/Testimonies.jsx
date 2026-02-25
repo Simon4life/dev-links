@@ -8,17 +8,17 @@ const Testimonies = () => {
   return (
     <Wrapper className="section-center">
       <div>
-        <h2>Loved by 5M+ Creators</h2>
+        <h2>Loved by 1M+ Developers</h2>
         <p className='section-text'>Join a global community who have simplified their online presence with devlinks</p>
         <div>
           <div className='testimony-container'>
           {
-            peoples.map((person) => {
-             return <div className='testimony' key={person.name}>
-              <p>
+            peoples.map((person, index) => {
+             return <div className='testimony' key={index}>
+              <p className='ratings-container'>
                 {
-                  person.rating.map((star) => {
-                    return <span>{star}</span>
+                  person.rating.map((star, ind) => {
+                    return <span key={ind}>{star}</span>
                   })
                 }
               </p>
@@ -42,7 +42,7 @@ const Testimonies = () => {
 }
 
 const Wrapper = styled.section`
-  padding: 2rem 0;
+  padding: 5rem 0;
   h2
    {
     text-transform: unset;
@@ -53,11 +53,14 @@ const Wrapper = styled.section`
   }
   .section-text {
     text-align: center;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
   }
   .testimony {
     background: white;
-    padding: 1rem;
+    padding: 0.6rem;
+    .ratings-container {
+      margin-bottom: 0.3rem;
+    }
     img {
       width: 5rem;
       border-radius: 50%;

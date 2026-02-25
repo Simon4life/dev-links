@@ -1,14 +1,12 @@
 import React from 'react'
 import styled from 'styled-components';
-import { FaPen, FaShare } from "react-icons/fa";
 import { FaLink } from "react-icons/fa6";
 import { FaWrench } from "react-icons/fa";
-import { CiLock } from "react-icons/ci";
 import { RiBrush4Line } from "react-icons/ri";
 import { IoMdLock } from "react-icons/io";
 const Features = () => {
   return (
-    <Wrapper className="feature-section section-center">
+    <Wrapper className="feature-section">
       <h2>
         Our <span>all feature</span> for your content
       </h2>
@@ -56,88 +54,126 @@ const Features = () => {
 }
 
 const Wrapper = styled.section`
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-    padding: 2rem 0;
-    p {
-      text-align: center;
-      font-weight: bold;
-    }
-    h2 {
-      text-align: center;
-      text-transform: unset;
-      span {
-        color: rgba(238, 41, 127, 0.941);
-      }
-    }
-    .features {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
-      padding: 1rem;
-      max-width: 1200px;
-      margin: 0 auto;
+  padding: 6rem 1rem;
+  background: #f8fafc;
+  @media (prefers-color-scheme: dark) {
+    background: #0f172a;
+  }
 
-      .feature {
-        gap: 1rem;
-        background: var(--clr-white);
-        h5 {
-          margin: 1rem 0;
-          font-size: 1.3rem;
-        }
-        p {
-          margin-bottom: 0;
-        }
-        span {
-          display: inline-block;
-          width: fit-content;
-          border-radius: 0.3rem;
-          font-size: 2.3rem;
-          padding: 1rem;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          margin-bottom: 1rem;
-          
-        }
-        .span-1 {
-          background: rgb(225, 252, 225);
-            svg {
-              color: rgb(7, 192, 7);
-            }
-        }
-        .span-2 {
-          background: rgb(235, 231, 252);
-            svg {
-              color: rgb(39, 5, 233);
-            }
-        }
-        .span-3 {
-          background: rgb(246, 202, 255);
-            svg {
-              color: rgb(198, 8, 236);
-            }
-        }
-        .span-4 {
-          background: rgb(255, 221, 247);
-            svg {
-              color: rgb(255, 64, 207);
-            }
-        }
-        padding: 2rem;
-        border-radius: 0.3rem;
-        p {
-          text-align: unset;
-          font-weight: unset;
-        }
-      }
-      .feature:hover {
-        transition: 0.5s ease-in;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-      }     
-      // @media screen and (min-width: )
+  h2 {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    color: #0f172a;
+
+    span {
+      background: linear-gradient(90deg, #ff2e88, #6366f1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
-  
+
+    @media (prefers-color-scheme: dark) {
+      color: white;
+    }
+  }
+
+  > p {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #64748b;
+    max-width: 500px;
+    margin: 0 auto 3rem;
+
+    @media (prefers-color-scheme: dark) {
+      color: #94a3b8;
+    }
+  }
+
+  .features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .feature {
+    background: white;
+    padding: 2.5rem 2rem;
+    border-radius: 1rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 1px solid #e2e8f0;
+
+    @media (prefers-color-scheme: dark) {
+      background: #1e293b;
+      border-color: #334155;
+    }
+
+    h4 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin: 1rem 0 0.8rem;
+      color: #0f172a;
+
+      @media (prefers-color-scheme: dark) {
+        color: white;
+      }
+    }
+
+    p {
+      color: #64748b;
+      font-size: 0.95rem;
+      line-height: 1.6;
+
+      @media (prefers-color-scheme: dark) {
+        color: #94a3b8;
+      }
+    }
+
+    &:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+      border-color: #6366f1;
+    }
+
+    span {
+      width: 70px;
+      height: 70px;
+      margin: 0 auto;
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      transition: transform 0.3s ease;
+    }
+
+    &:hover span {
+      transform: scale(1.1);
+    }
+
+    .span-1 {
+      background: rgba(16, 185, 129, 0.1);
+      svg { color: #10b981; }
+    }
+
+    .span-2 {
+      background: rgba(99, 102, 241, 0.1);
+      svg { color: #6366f1; }
+    }
+
+    .span-3 {
+      background: rgba(236, 72, 153, 0.1);
+      svg { color: #ec4899; }
+    }
+
+    .span-4 {
+      background: rgba(249, 115, 22, 0.1);
+      svg { color: #f97316; }
+    }
+  }
 `;
 
 export default Features

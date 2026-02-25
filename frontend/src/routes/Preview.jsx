@@ -1,34 +1,37 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import styled from "styled-components";
 import { Link } from 'react-router-dom';
 import PreviewCard from '../components/PreviewCard';
 import {useParams} from "react-router-dom";
-import { useQuery } from '@tanstack/react-query';
 import customFetch from '../utils/customFetch';
 import { useUserContext } from '../context/user_context';
 
 const Preview = () => {
   const {userId} =  useParams();
+  console.log(userId)
   const {user} =useUserContext();
-
-  const { isLoading, error, data } = useQuery({
-    queryKey: ["preview"],
-    queryFn: async() => {
-      return await customFetch(user.accessToken)
-        .get(`/api/v1/profile/${userId}`)
-        .then((res) => res.data);
-    },
-  });
+  const [isLoading, setIsLoading] = useState(true)
+  const [data, setData] = useState()
+  const fetchUserData = async() => {
+    try {
+      const response = await customFetch().get(`/api/v1/profile/${userId}`);
+      const {user}= response.data
+      setData(user);
+      setIsLoading(false)
+      return user;
+    } catch (error) {
+      console.log(error)
+    }
+    
+  }
+  useEffect(() =>{
+    fetchUserData();
+  }, [])
 
   if(isLoading) {
     return <h2>Loading</h2>
   }
-
-  if(error) {
-    return <h2>Opps something went wrong</h2>
-  }
   
-  const userData = data.user;
   return (
     <Wrapper>
       <div className="banner">
@@ -38,7 +41,7 @@ const Preview = () => {
         </nav>
       </div>
       <div className="preview-card">
-        <PreviewCard user={userData} />
+        <PreviewCard user={data} />
       </div>
     </Wrapper>
   );

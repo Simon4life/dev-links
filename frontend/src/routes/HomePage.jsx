@@ -4,7 +4,7 @@ import Hero from "../components/Hero"
 import LandingNav from "../components/LandingNav"
 import Features from "../components/Feature"
 import Testimonies from '../components/Testimonies';
-import NewsletterSignup from '../components/NewsLetter';
+import CreatorSection from '../components/NewsLetter';
 import Footer from '../components/Footer';
 const LandingPage = () => {
   return (
@@ -13,8 +13,9 @@ const LandingPage = () => {
       <LandingNav />
       <Hero />
       <Features />
+      <CreatorSection />
       <Testimonies />
-      <NewsletterSignup />
+      
       <Footer />
     </Wrapper>
   );

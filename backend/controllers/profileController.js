@@ -20,15 +20,13 @@ const updateUserProfile = async (req, res) => {
 
 const getUserProfile = async (req, res) => {
   const {userId} = req.params;
-  console.log(userId)
-  res.status(StatusCodes.OK).json({message: "hello"})
-  // const user = await User.findOne({_id: userId})
-  // if(user) {
-  //   const {firstName, lastName, email, imgUrl} = user;
-  //   res.status(StatusCodes.OK).json({user: {firstName, lastName, email, profilePicture: imgUrl}})
-  // } else {
-  //   res.status(StatusCodes.NOT_FOUND).json({ message: "User not found" });
-  // }
+  const user = await User.findOne({_id: userId})
+  if(user) {
+    const {firstName, lastName, email, imgUrl} = user;
+    res.status(StatusCodes.OK).json({user: {firstName, lastName, email, profilePicture: imgUrl}})
+  } else {
+    res.status(StatusCodes.NOT_FOUND).json({ message: "User not found" });
+  }
 }
 
 

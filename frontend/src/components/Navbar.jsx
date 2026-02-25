@@ -8,7 +8,7 @@ import { useUserContext } from "../context/user_context"
 
 const Navbar = () => {
   const { user } = useUserContext();
-  const userId = user.useruserId;
+  const {userId} = user
   const [screenSize, setScreenSize] = useState(window.innerWidth);
   useEffect(() => {
     window.addEventListener("resize", () => setScreenSize(window.innerWidth));

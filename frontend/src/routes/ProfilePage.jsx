@@ -1,22 +1,31 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from "styled-components";
 import Phone from "../components/Phone"
 import ProfileForm from '../components/ProfileForm';
-import { useQuery } from "@tanstack/react-query";
 import customFetch from "../utils/customFetch";
 import { useUserContext } from '../context/user_context';
 
 const ProfilePage = () => {
   const { user } = useUserContext();
   const { userId } = user;
-  const { isLoading, error, data } = useQuery({
-    queryKey: ["profile"],
-    queryFn: async () => {
-      return await customFetch(user.accessToken)
-        .get(`/api/v1/profile/${userId}`)
-        .then((res) => res.data);
-    },
-  });
+  const [isLoading, setIsLoading] = useState(true)
+  const [data, setData] = useState()
+  const fetchUserData = async() => {
+    try {
+      const response = await customFetch().get(`/api/v1/profile/${userId}`);
+      const {user}= response.data
+      console.log(user);
+      setData(user);
+      setIsLoading(false)
+      return user;
+    } catch (error) {
+      console.log(error)
+    }
+    
+  }
+  useEffect(() =>{
+    fetchUserData();
+  }, [])
 
   if(isLoading) {
     return <h2>Loading</h2>
@@ -31,7 +40,7 @@ const ProfilePage = () => {
             <h3>Profile Details</h3>
             <p>Add your details to add a personal touch to your profile.</p>
           </div>
-          <ProfileForm formValues={data.user}/>
+          <ProfileForm formValues={data}/>
         </div>
       </div>
     </Wrapper>
