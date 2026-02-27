@@ -14,7 +14,6 @@ const ProfilePage = () => {
     try {
       const response = await customFetch().get(`/api/v1/profile/${userId}`);
       const {user}= response.data
-      console.log(user);
       setData(user);
       setIsLoading(false)
       return user;

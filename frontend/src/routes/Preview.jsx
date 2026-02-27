@@ -8,7 +8,6 @@ import { useUserContext } from '../context/user_context';
 
 const Preview = () => {
   const {userId} =  useParams();
-  console.log(userId)
   const {user} =useUserContext();
   const [isLoading, setIsLoading] = useState(true)
   const [data, setData] = useState()

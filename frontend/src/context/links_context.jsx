@@ -21,6 +21,7 @@ export const LinksProvider = ({ children }) => {
     try {
       const response = await customFetch().get("/api/v1/links");
       const { links } = response.data;
+      console.log(links)
       dispatch({ type: "GET_LINKS", payload: links });
       return response;
     } catch (error) {

@@ -10,9 +10,11 @@ const links_reducer = (state, action) => {
   }
 
   if(action.type === "GET_LINKS") {
+    console.log(action.payload)
     if(action.payload.length < 1) {
       return {...state}
     }else {
+
       return {...state, formLinksArr: action.payload};
     }
   }
@@ -34,8 +36,7 @@ const links_reducer = (state, action) => {
     return {...state, formLinksArr: newFormLinksArr}
   }
   if(action.type === "CREATE_LINK") {
-    console.log(action.payload)
-    return {...state, formLinksArr: action.payload.links}
+    return {...state, formLinksArr: action.payload}
   }
 }
 
